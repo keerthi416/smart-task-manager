@@ -471,3 +471,18 @@ button:hover {
     }
 
 }
+.calendar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.calendar-section label {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.calendar-section input {
+    margin-bottom: 0;
+}

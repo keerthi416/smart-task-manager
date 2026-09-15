@@ -471,18 +471,35 @@ button:hover {
     }
 
 }
-.calendar-section {
+.section {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.calendar-section label {
-    color: white;
+
+.calendar-label {
+    display: block;
+    font-size: 22px;
     font-weight: bold;
-    font-size: 15px;
+    color: #073f68;
+    margin: 15px 0 5px;
 }
 
-.calendar-section input {
-    margin-bottom: 0;
+.task-date {
+    width: 100%;
+    height: 70px;
+    padding: 0 20px;
+    font-size: 18px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    background: white;
+    color: #333;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.task-date:focus {
+    outline: none;
+    border-color: #07588c;
 }

@@ -1,0 +1,473 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #123c69, #4f86b5);
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 15px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.login-box h1 {
+    text-align: center;
+    color: #123c69;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
+}
+
+input,
+select {
+    padding: 12px;
+    margin-bottom: 18px;
+
+    border: 1px solid #ccc;
+    border-radius: 7px;
+
+    font-size: 15px;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #123c69;
+}
+
+button {
+    padding: 13px;
+
+    background: #123c69;
+    color: white;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d5d96;
+}
+
+#message,
+#registerMessage {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.register-text {
+    text-align: center;
+    margin-top: 20px;
+    color: #555;
+}
+
+.register-text a {
+    color: #123c69;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+/* ================= DASHBOARD ================= */
+
+.dashboard {
+    display: none;
+
+    min-height: 100vh;
+    width: 100%;
+
+    padding: 35px;
+    position: relative;
+}
+
+.dashboard h1 {
+    background: #123c69;
+    color: white;
+
+    padding: 22px 30px;
+
+    border-radius: 15px;
+
+    max-width: 850px;
+
+    margin: 0 auto 12px;
+
+    text-align: center;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.2);
+
+    font-size: 32px;
+}
+
+.welcome-quote {
+    color: white;
+
+    text-align: center;
+
+    font-size: 20px;
+
+    font-style: italic;
+
+    font-weight: bold;
+
+    margin: 15px auto 30px;
+
+    line-height: 1.5;
+}
+
+
+/* ================= LOGOUT ================= */
+
+#logoutButton {
+    position: absolute;
+
+    top: 25px;
+    right: 30px;
+
+    background: white;
+    color: #123c69;
+
+    padding: 10px 18px;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+}
+
+#logoutButton:hover {
+    background: #e8eef5;
+}
+
+
+/* ================= TASK INPUT ================= */
+
+.task-input {
+    display: flex;
+
+    gap: 10px;
+
+    max-width: 900px;
+
+    margin: 25px auto 30px;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+}
+
+.task-input input[type="text"] {
+    flex: 1;
+
+    min-width: 220px;
+}
+
+.task-input input,
+.task-input select {
+    padding: 11px;
+
+    border-radius: 7px;
+
+    margin-bottom: 0;
+}
+
+.task-input button {
+    padding: 11px 20px;
+}
+
+
+/* ================= MY TASKS ================= */
+
+.dashboard h2 {
+    color: white;
+
+    max-width: 900px;
+
+    margin: 0 auto 15px;
+}
+
+
+/* ================= SEARCH ================= */
+
+.task-filters {
+    display: flex;
+
+    gap: 12px;
+
+    max-width: 900px;
+
+    margin: 0 auto 20px;
+
+    flex-wrap: wrap;
+}
+
+.task-filters input {
+    flex: 1;
+
+    min-width: 220px;
+
+    margin-bottom: 0;
+}
+
+.task-filters select {
+    min-width: 180px;
+
+    margin-bottom: 0;
+}
+
+
+/* ================= STATISTICS ================= */
+
+.task-stats {
+    display: flex;
+
+    gap: 15px;
+
+    max-width: 900px;
+
+    margin: 20px auto 25px;
+
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    flex: 1;
+
+    min-width: 150px;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    color: white;
+}
+
+.stat-card h3 {
+    font-size: 30px;
+
+    margin-bottom: 6px;
+
+    color: white;
+}
+
+.stat-card p {
+    margin: 0;
+
+    color: white;
+
+    font-weight: 600;
+}
+
+
+/* ================= TASK LIST ================= */
+
+#taskList {
+    list-style: none;
+
+    max-width: 900px;
+
+    margin: 20px auto;
+
+    padding: 0;
+}
+
+#taskList li {
+    background: white;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 15px 18px;
+
+    margin-bottom: 12px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+#taskList li > div {
+    flex: 1;
+}
+
+#taskList strong {
+    font-size: 17px;
+}
+
+#taskList small {
+    display: inline-block;
+
+    margin-top: 5px;
+
+    color: #666;
+}
+
+#taskList button {
+    padding: 8px 12px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+    background: #123c69;
+
+    color: white;
+}
+
+#taskList button:hover {
+    background: #1d5d96;
+
+    transform: translateY(-2px);
+}
+
+
+/* ================= COMPLETED ================= */
+
+.completed {
+    text-decoration: line-through;
+
+    opacity: 0.6;
+}
+
+
+/* ================= PRIORITY ================= */
+
+.high-priority {
+    color: #d00000 !important;
+
+    font-weight: bold;
+}
+
+.medium-priority {
+    color: #b88600 !important;
+
+    font-weight: bold;
+}
+
+.low-priority {
+    color: #168316 !important;
+
+    font-weight: bold;
+}
+
+
+/* ================= OVERDUE ================= */
+
+.overdue {
+    color: #d00000 !important;
+
+    font-weight: bold;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 600px) {
+
+    .dashboard {
+        padding: 25px 15px;
+    }
+
+    .dashboard h1 {
+        font-size: 25px;
+
+        padding: 20px;
+    }
+
+    #logoutButton {
+        position: static;
+
+        display: block;
+
+        margin: 0 0 20px auto;
+    }
+
+    .task-input {
+        flex-direction: column;
+    }
+
+    .task-input input,
+    .task-input select,
+    .task-input button {
+        width: 100%;
+    }
+
+    .task-filters {
+        flex-direction: column;
+    }
+
+    .task-filters input,
+    .task-filters select {
+        width: 100%;
+    }
+
+    #taskList li {
+        flex-wrap: wrap;
+    }
+
+    #taskList li > div {
+        width: 100%;
+        flex-basis: 100%;
+    }
+
+    #taskList button {
+        flex: 1;
+    }
+
+}

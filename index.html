@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= LOGIN PAGE ================= -->
+
+    <div class="container" id="loginPage">
+
+        <div class="login-box">
+
+            <h1>Welcome to Smart Task Manager</h1>
+
+            <p class="subtitle">
+                "Organize your tasks. Manage your time."
+            </p>
+
+            <form id="loginForm">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <button type="submit">Login</button>
+
+            </form>
+
+            <p id="message"></p>
+
+            <p class="register-text">
+                Don't have an account?
+                <a href="#" id="showRegister">Create Account</a>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= REGISTER PAGE ================= -->
+
+    <div class="container" id="registerPage" style="display:none;">
+
+        <div class="login-box">
+
+            <h1>Create Account</h1>
+
+            <p class="subtitle">
+                Create your account to manage your tasks.
+            </p>
+
+            <form id="registerForm">
+
+                <label>Full Name</label>
+
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Create a password"
+                    required
+                >
+
+                <button type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+            <p id="registerMessage"></p>
+
+            <p class="register-text">
+                Already have an account?
+                <a href="#" id="showLogin">Login</a>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <div class="dashboard" id="dashboard">
+
+        <button
+            type="button"
+            id="logoutButton"
+            onclick="logout()">
+            Logout
+        </button>
+
+        <h1 id="welcomeTitle">
+            Welcome to Smart Task Manager
+        </h1>
+
+        <p class="welcome-quote">
+            "Stay organized, stay focused, and get things done!"
+        </p>
+
+
+        <!-- TASK INPUT -->
+
+        <div class="task-input">
+
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Enter a new task"
+            >
+
+            <select id="priority">
+
+                <option value="Low">
+                    Low Priority
+                </option>
+
+                <option value="Medium" selected>
+                    Medium Priority
+                </option>
+
+                <option value="High">
+                    High Priority
+                </option>
+
+            </select>
+
+            <input
+                type="date"
+                id="dueDate"
+            >
+
+            <button
+                type="button"
+                onclick="addTask()">
+                Add Task
+            </button>
+
+        </div>
+
+
+        <h2>My Tasks</h2>
+
+
+        <!-- SEARCH -->
+
+        <div class="task-filters">
+
+            <input
+                type="text"
+                id="searchTask"
+                placeholder="🔍 Search tasks..."
+            >
+
+            <select id="filterStatus">
+
+                <option value="all">
+                    All Tasks
+                </option>
+
+                <option value="pending">
+                    Pending
+                </option>
+
+                <option value="completed">
+                    Completed
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="task-stats">
+
+            <div class="stat-card">
+
+                <h3 id="totalTasks">0</h3>
+
+                <p>Total Tasks</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3 id="pendingTasks">0</h3>
+
+                <p>Pending</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3 id="completedTasks">0</h3>
+
+                <p>Completed</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- TASK LIST -->
+
+        <ul id="taskList"></ul>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

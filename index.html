@@ -1,258 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Task Manager</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart Task Manager - Stay organized, stay focused, and get things done with real-time desktop notifications, audio alarms, and task management.">
+  <title>Smart Task Manager</title>
 
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
 <body>
 
-    <!-- ================= LOGIN PAGE ================= -->
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
-    <div class="container" id="loginPage">
+  <!-- HIGH-PRIORITY OVERDUE ALERT & AUDIO ALARM MODAL -->
+  <div id="overdue-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="overdue-modal-title">
+    <div class="modal-card alert-modal-card">
+      <div class="modal-header">
+        <div class="alert-icon-wrap">
+          <i class="fa-solid fa-bell-exclamation fa-bounce"></i>
+        </div>
+        <h3 id="overdue-modal-title">Task Overdue Alert!</h3>
+      </div>
+      <div class="modal-body">
+        <p id="overdue-modal-text">ALERT: You have pending work! Task '<strong id="overdue-task-name">Task Name</strong>' is overdue. Please complete it.</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-complete-overdue" class="btn btn-success"><i class="fa-solid fa-check"></i> Mark Complete</button>
+        <button id="btn-dismiss-overdue" class="btn btn-danger"><i class="fa-solid fa-volume-xmark"></i> Stop Alarm / Dismiss</button>
+      </div>
+    </div>
+  </div>
 
-        <div class="login-box">
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <i class="fa-solid fa-list-check brand-icon"></i>
+      <span class="brand-title">Smart Task Manager</span>
+    </div>
+    <div class="header-actions">
+      <button id="btn-sound-test" class="btn btn-header-pill" title="Test Alarm Sound & Notification"><i class="fa-solid fa-volume-high"></i> Test Alarm</button>
+      <button id="btn-logout" class="btn logout-btn hidden" aria-label="Log out of app">Logout</button>
+    </div>
+  </header>
 
-            <h1>Welcome to Smart Task Manager</h1>
+  <main class="main-container">
 
-            <p class="subtitle">
-                "Organize your tasks. Manage your time."
-            </p>
-
-            <form id="loginForm">
-
-                <label>Email</label>
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    required
-                >
-
-                <label>Password</label>
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    required
-                >
-
-                <button type="submit">Login</button>
-
-            </form>
-
-            <p id="message"></p>
-
-            <p class="register-text">
-                Don't have an account?
-                <a href="#" id="showRegister">Create Account</a>
-            </p>
-
+    <!-- AUTH SECTION (Login / Register Card) -->
+    <section id="auth-section" class="auth-section">
+      <!-- WHITE LOGIN CARD (Matching Reference Image 1) -->
+      <div id="login-card-wrapper" class="auth-card-white">
+        <div class="auth-card-header">
+          <h1 class="auth-title">Welcome to Smart<br>Task Manager</h1>
+          <p class="auth-subtitle">"Organize your tasks. Manage your time."</p>
         </div>
 
-    </div>
+        <!-- LOGIN FORM -->
+        <form id="login-form" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="login-email" class="form-label">Email</label>
+            <input type="text" id="login-email" class="form-control" placeholder="Enter your email" autocomplete="email">
+            <div id="login-email-error" class="error-message">Enter a valid E-mail</div>
+          </div>
+          <div class="form-group">
+            <label for="login-password" class="form-label">Password</label>
+            <input type="password" id="login-password" class="form-control" placeholder="Enter your password" autocomplete="current-password">
+            <div id="login-pass-error" class="error-message">Password is required</div>
+          </div>
+          <div id="login-auth-error" class="error-message auth-global-error">Invalid email or password</div>
 
+          <div class="form-actions">
+            <button type="submit" class="btn btn-auth-primary btn-block">Login</button>
+          </div>
+          <div class="auth-toggle-footer">
+            <span>Don't have an account?</span>
+            <button type="button" class="btn-link-inline" onclick="switchAuthTab('register')">Create Account</button>
+          </div>
+        </form>
 
-    <!-- ================= REGISTER PAGE ================= -->
+        <!-- REGISTER FORM -->
+        <form id="register-form" class="auth-form hidden" novalidate>
+          <div class="form-group">
+            <label for="reg-name" class="form-label">Full Name</label>
+            <input type="text" id="reg-name" class="form-control" placeholder="Enter your name">
+            <div id="reg-name-error" class="error-message">Full Name is required</div>
+          </div>
+          <div class="form-group">
+            <label for="reg-email" class="form-label">Email</label>
+            <input type="text" id="reg-email" class="form-control" placeholder="xyz@email.com" autocomplete="email">
+            <div id="reg-email-error" class="error-message">Enter a valid E-mail</div>
+          </div>
+          <div class="form-group">
+            <label for="reg-password" class="form-label">Password</label>
+            <input type="password" id="reg-password" class="form-control" placeholder="enter 8+ char (e.g. TaskApp2026!)" autocomplete="new-password">
+            <div id="reg-pass-error" class="error-message">Password must be at least 8 characters long, contain 1 uppercase letter, 1 special character, numbers, and no spaces.</div>
+          </div>
+          <div id="reg-auth-error" class="error-message auth-global-error">Email is already registered</div>
 
-    <div class="container" id="registerPage" style="display:none;">
+          <div class="form-actions">
+            <button type="submit" class="btn btn-auth-primary btn-block">Create Account</button>
+          </div>
+          <div class="auth-toggle-footer">
+            <span>Already have an account?</span>
+            <button type="button" class="btn-link-inline" onclick="switchAuthTab('login')">Login</button>
+          </div>
+        </form>
+      </div>
+    </section>
 
-        <div class="login-box">
+    <!-- DASHBOARD SECTION -->
+    <section id="dashboard-section" class="dashboard-section hidden">
 
-            <h1>Create Account</h1>
+      <!-- WELCOME BANNER (Matching Reference Image 2) -->
+      <div class="welcome-banner">
+        <h1 class="welcome-heading">Welcome, <span id="user-name-display">harshavardhan</span>!</h1>
+        <p class="welcome-quote">"Stay organized, stay focused, and get things done!"</p>
 
-            <p class="subtitle">
-                Create your account to manage your tasks.
-            </p>
-
-            <form id="registerForm">
-
-                <label>Full Name</label>
-
-                <input
-                    type="text"
-                    id="registerName"
-                    placeholder="Enter your full name"
-                    required
-                >
-
-                <label>Email</label>
-
-                <input
-                    type="email"
-                    id="registerEmail"
-                    placeholder="Enter your email"
-                    required
-                >
-
-                <label>Password</label>
-
-                <input
-                    type="password"
-                    id="registerPassword"
-                    placeholder="Create a password"
-                    required
-                >
-
-                <button type="submit">
-                    Create Account
-                </button>
-
-            </form>
-
-            <p id="registerMessage"></p>
-
-            <p class="register-text">
-                Already have an account?
-                <a href="#" id="showLogin">Login</a>
-            </p>
-
+        <!-- Desktop Notifications Notice Tag -->
+        <div class="email-notice-tag">
+          <i class="fa-solid fa-bell"></i> Real-Time Desktop Notifications & Audio Alarms Active
         </div>
 
-    </div>
+        <!-- Progress Bar -->
+        <div class="progress-wrap">
+          <div class="progress-label">
+            <span>Overall Progress</span>
+            <span id="progress-percent">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="progress-bar-fill" class="progress-bar-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
 
-
-    <!-- ================= DASHBOARD ================= -->
-
-    <div class="dashboard" id="dashboard">
-
-        <button
-            type="button"
-            id="logoutButton"
-            onclick="logout()">
-            Logout
-        </button>
-
-        <h1 id="welcomeTitle">
-            Welcome to Smart Task Manager
-        </h1>
-
-        <p class="welcome-quote">
-            "Stay organized, stay focused, and get things done!"
-        </p>
-
-
-        <!-- TASK INPUT -->
-
-        <div class="task-input">
-
-            <input
-                type="text"
-                id="taskInput"
-                placeholder="Enter a new task"
-            >
-
-            <select id="priority">
-
-                <option value="Low">
-                    Low Priority
-                </option>
-
-                <option value="Medium" selected>
-                    Medium Priority
-                </option>
-
-                <option value="High">
-                    High Priority
-                </option>
-
+      <!-- TASK CREATION BAR (Matching Reference Image 2 Layout) -->
+      <div class="task-input-card">
+        <form id="add-task-form" class="task-form-inline">
+          <div class="input-col task-title-col">
+            <input type="text" id="task-title-input" class="form-control" placeholder="Enter a new task" required>
+          </div>
+          <div class="input-col task-priority-col">
+            <select id="task-priority-select" class="form-control form-select">
+              <option value="Low">Low Priority</option>
+              <option value="Medium" selected>Medium Priority</option>
+              <option value="High">High Priority</option>
             </select>
+          </div>
+          <div class="input-col task-date-col">
+            <span class="inline-label">Calendar</span>
+            <input type="date" id="task-date-input" class="form-control" required>
+          </div>
+          <div class="input-col task-time-col">
+            <span class="inline-label">Time</span>
+            <input type="time" id="task-time-input" class="form-control" required>
+          </div>
+          <div class="input-col task-btn-col">
+            <span class="arrow-sep">&gt;</span>
+            <button type="submit" class="btn btn-primary btn-add-task"><i class="fa-solid fa-plus"></i> Add Task</button>
+          </div>
+        </form>
+      </div>
 
-            <div class="calendar-section">
-    <label for="dueDate">Calendar</label>
-    <input
-        type="date"
-        id="dueDate"
-    >
-</div>
-            >
+      <!-- MY TASKS & SEARCH / FILTER SECTION -->
+      <div class="my-tasks-container">
+        <h2 class="section-title">My Tasks</h2>
 
-            <button
-                type="button"
-                onclick="addTask()">
-                Add Task
-            </button>
-
-        </div>
-
-
-        <h2>My Tasks</h2>
-
-
-        <!-- SEARCH -->
-
-        <div class="task-filters">
-
-            <input
-                type="text"
-                id="searchTask"
-                placeholder="🔍 Search tasks..."
-            >
-
-            <select id="filterStatus">
-
-                <option value="all">
-                    All Tasks
-                </option>
-
-                <option value="pending">
-                    Pending
-                </option>
-
-                <option value="completed">
-                    Completed
-                </option>
-
+        <div class="search-filter-bar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="search-input" class="form-control search-control" placeholder="Search tasks...">
+          </div>
+          <div class="filter-box">
+            <select id="status-filter-select" class="form-control form-select">
+              <option value="all">All Tasks</option>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+              <option value="overdue">Overdue</option>
+              <option value="high">High Priority</option>
             </select>
-
+          </div>
         </div>
 
-
-        <!-- STATISTICS -->
-
-        <div class="task-stats">
-
-            <div class="stat-card">
-
-                <h3 id="totalTasks">0</h3>
-
-                <p>Total Tasks</p>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <h3 id="pendingTasks">0</h3>
-
-                <p>Pending</p>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <h3 id="completedTasks">0</h3>
-
-                <p>Completed</p>
-
-            </div>
-
+        <!-- SUMMARY STATUS CARDS (Matching Reference Image 2 Cards) -->
+        <div class="stats-grid">
+          <div class="stat-card" id="card-total">
+            <div class="stat-number" id="count-total">0</div>
+            <div class="stat-label">Total Tasks</div>
+          </div>
+          <div class="stat-card" id="card-pending">
+            <div class="stat-number" id="count-pending">0</div>
+            <div class="stat-label">Pending</div>
+          </div>
+          <div class="stat-card" id="card-completed">
+            <div class="stat-number" id="count-completed">0</div>
+            <div class="stat-label">Completed</div>
+          </div>
+          <div class="stat-card stat-card-overdue" id="card-overdue">
+            <div class="stat-number" id="count-overdue">0</div>
+            <div class="stat-label">Overdue</div>
+          </div>
         </div>
 
+        <!-- TASK LIST CONTAINER -->
+        <div id="task-list" class="task-list">
+          <!-- Dynamic Task Cards will render here -->
+        </div>
 
-        <!-- TASK LIST -->
+        <!-- EMPTY STATE -->
+        <div id="empty-state" class="empty-state hidden">
+          <i class="fa-solid fa-clipboard-list empty-icon"></i>
+          <h3>No tasks found</h3>
+          <p>Add a new task above to get started, or adjust your search filter.</p>
+        </div>
+      </div>
 
-        <ul id="taskList"></ul>
+    </section>
 
-    </div>
+  </main>
 
-
-    <script src="script.js"></script>
-
+  <script src="app.js"></script>
 </body>
 </html>
